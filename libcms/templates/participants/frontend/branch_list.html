@@ -83,9 +83,13 @@
                                                         {% url 'participants:frontend:detail' library.code as participant_site_url %}
                                                     {% endif %}
                                                     <h3 class="list__title">
-                                                        <span>{{ library.name }}</span>
-{#                                                        <a class="list__title-link"#}
-{#                                                           href="{{ participant_site_url }}">{{ library.name }}</a>#}
+
+                                                        {% if not library.is_leaf_node %}
+                                                            <a class="list__title-link"
+                                                               href="{{ participant_site_url }}">{{ library.name }}</a>
+                                                        {% else %}
+                                                            <span>{{ library.name }}</span>
+                                                        {% endif %}
                                                     </h3>
 {#                                                    <a class="list__link"#}
 {#                                                       href="{% url 'ssearch:frontend:index' %}?library={{ library.code }}"#}
