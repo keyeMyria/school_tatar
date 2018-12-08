@@ -65,7 +65,7 @@ def branches(request, code=None):
 
 def detail(request, code):
     library = get_object_or_404(Library, code=code)
-    return redirect('participant_site:frontend:index', library_code=library.code)
+    # return redirect('participant_site:frontend:index', library_code=library.code)
     js_orgs = []
     js_orgs.append(make_library_dict(library))
 

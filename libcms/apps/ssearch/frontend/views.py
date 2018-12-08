@@ -606,7 +606,7 @@ def detail(request, gen_id):
         raise Http404()
 
     # DetailAccessLog(catalog=catalog, gen_id=record.gen_id).save()
-    DetailAccessLog.objects.create(catalog=catalog, gen_id=gen_id, date_time=datetime.datetime.now())
+    DetailAccessLog.objects.using(MAIN_PORTAL_DB).create(catalog=catalog, gen_id=gen_id, date_time=datetime.datetime.now())
 
     doc_tree = etree.XML(record.content)
     leader8 = doc_tree.xpath('/record/leader/leader08')
@@ -651,7 +651,7 @@ def detail(request, gen_id):
             #        for doc in mlt_docs:
             #            doc['record'] = records_dict.get(doc['id'])
 
-    access_count = DetailAccessLog.objects.filter(catalog=catalog, gen_id=record.gen_id).count()
+    access_count = DetailAccessLog.objects.using(MAIN_PORTAL_DB).filter(catalog=catalog, gen_id=record.gen_id).count()
 
     return render(request, 'ssearch/frontend/detail.html', {
         'doc_dump': rusmarc_template.beautify(bib_dump.replace('<b/>', '')),

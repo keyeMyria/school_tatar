@@ -74,15 +74,15 @@
 {% else %}
 
     <ul class="nav header__user">
-        <li class="nav__item">
-            <a class="nav__link" href="{% url 'accounts:frontend:registration' %}">
-                {% if LANGUAGE_CODE == 'tt' %}
-                    Теркәлү
-                {% else %}
-                    Регистрация
-                {% endif %}
-            </a>
-        </li>
+{#        <li class="nav__item">#}
+{#            <a class="nav__link" href="{% url 'accounts:frontend:registration' %}">#}
+{#                {% if LANGUAGE_CODE == 'tt' %}#}
+{#                    Теркәлү#}
+{#                {% else %}#}
+{#                    Регистрация#}
+{#                {% endif %}#}
+{#            </a>#}
+{#        </li>#}
         <li class="nav__item">
             <a class="nav__link" href="{% url 'accounts:frontend:login' %}">
                 {% if LANGUAGE_CODE == 'tt' %}

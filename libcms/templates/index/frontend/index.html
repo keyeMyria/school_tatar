@@ -76,122 +76,124 @@
                                 </button>
                             </div>
                         </form>
-                        <a class="search-sub-link" href="#">Поиск по школьным библиотекам<i
+                        <a class="search-sub-link" href="https://kitap.tatar.ru">Поиск по публичным библиотекам<i
                                 class="icon-right-arrow"></i></a>
                     </section>
                 </div>
-                <div class="col-lg-4 col-md-12 col_as-fe">
-                    <section class="card card_md-mt">
-                        <div class="card__header">
-                            <h2 class="card__title">
-                                {% if LANGUAGE_CODE == 'ru' %}
-                                    Задать вопрос библиотекарю
-                                {% elif LANGUAGE_CODE == 'tt' %}
-                                    Китапханәчегә сорау бирү
-                                {% else %}
-                                    Ask question
-                                {% endif %}
-                            </h2>
-                        </div>
-                        <div class="card__body">
-                            <p class="card__ask-lib-text">Ищете информацию? Подбираете литературу? Есть вопросы о работе
-                                библиотеки? Виртуальная справочная служба поможет!</p>
-                        </div>
-                        <div class="card__footer">
-                            <ul class="card-nav">
-                                <li class="card-nav__item">
-                                    <a class="card-nav__link" href="{% url 'ask_librarian:frontend:ask' %}">
-                                        {% if LANGUAGE_CODE == 'ru' %}
-                                            Задать вопрос
-                                        {% elif LANGUAGE_CODE == 'tt' %}
-                                            Китапханәчегә сорау
-                                        {% else %}
-                                            Ask question
-                                        {% endif %}
-                                    </a>
-                                </li>
-                                <li class="card-nav__item">
-                                    <a class="card-nav__link" href="{% url 'ask_librarian:frontend:index' %}">
-                                        {% if LANGUAGE_CODE == 'ru' %}
-                                            Все вопросы
-                                        {% elif LANGUAGE_CODE == 'tt' %}
-                                            Барлык сораулар
-                                        {% else %}
-                                            All questions
-                                        {% endif %}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
+{#                <div class="col-lg-4 col-md-12 col_as-fe">#}
+{#                    <section class="card card_md-mt">#}
+{#                        <div class="card__header">#}
+{#                            <h2 class="card__title">#}
+{#                                {% if LANGUAGE_CODE == 'ru' %}#}
+{#                                    Задать вопрос библиотекарю#}
+{#                                {% elif LANGUAGE_CODE == 'tt' %}#}
+{#                                    Китапханәчегә сорау бирү#}
+{#                                {% else %}#}
+{#                                    Ask question#}
+{#                                {% endif %}#}
+{#                            </h2>#}
+{#                        </div>#}
+{#                        <div class="card__body">#}
+{#                            <p class="card__ask-lib-text">Ищете информацию? Подбираете литературу? Есть вопросы о работе#}
+{#                                библиотеки? Виртуальная справочная служба поможет!</p>#}
+{#                        </div>#}
+{#                        <div class="card__footer">#}
+{#                            <ul class="card-nav">#}
+{#                                <li class="card-nav__item">#}
+{#                                    <a class="card-nav__link" href="{% url 'ask_librarian:frontend:ask' %}">#}
+{#                                        {% if LANGUAGE_CODE == 'ru' %}#}
+{#                                            Задать вопрос#}
+{#                                        {% elif LANGUAGE_CODE == 'tt' %}#}
+{#                                            Китапханәчегә сорау#}
+{#                                        {% else %}#}
+{#                                            Ask question#}
+{#                                        {% endif %}#}
+{#                                    </a>#}
+{#                                </li>#}
+{#                                <li class="card-nav__item">#}
+{#                                    <a class="card-nav__link" href="{% url 'ask_librarian:frontend:index' %}">#}
+{#                                        {% if LANGUAGE_CODE == 'ru' %}#}
+{#                                            Все вопросы#}
+{#                                        {% elif LANGUAGE_CODE == 'tt' %}#}
+{#                                            Барлык сораулар#}
+{#                                        {% else %}#}
+{#                                            All questions#}
+{#                                        {% endif %}#}
+{#                                    </a>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </section>#}
+{#                </div>#}
             </div>
             <section class="card news-main">
                 <h2 class="news-main__title">Мы обновляем дизайн, а также вносим другие изменения</h2>
                 <p class="news-main__description">Некоторое время могут возникать проблемы с входом в кабинет, но не грустите - мы постараемся как можно быстрее завершить работы.</p>
 {#                <a class="news-main__link" href="#">Подробнее о конкурсе</a>#}
             </section>
-            <section class="card-transparent new-arrival-card">
-                <header class="card-transparent__header">
-                    <h2 class="card-transparent__title">
-                        {% if LANGUAGE_CODE == 'ru' %}
-                            Новые оцифрованные издания
-                        {% elif LANGUAGE_CODE == 'tt' %}
-                            Яңа цифрлаштырылган басмалар
-                        {% else %}
-                            New e-resources
-                        {% endif %}
-                    </h2>
-                    <a href="{% url 'newinlib:frontend:index' %}" class="card-transparent__link">
-                        {% if LANGUAGE_CODE == 'ru' %}Все оцифрованные издания
-                        {% elif LANGUAGE_CODE == 'tt' %}Соңгы кертелгән китаплар
-                        {% else %}More new arrivals
-                        {% endif %}
-                    </a>
-                </header>
-                {% cache 60 newinlib.html %}
-                    {% last_items_feed %}
-                {% endcache %}
-            </section>
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <section class="card-transparent">
-                        <header class="card-transparent__header">
-                            <h2 class="card-transparent__title">
-                                {% if LANGUAGE_CODE == 'ru' %}
-                                    Новости
-                                {% elif LANGUAGE_CODE == 'tt' %}
-                                    Яңалыклар
-                                {% else %}
-                                    News
-                                {% endif %}
-                            </h2>
-                            <a class="card-transparent__link" href="{% url 'news:frontend:index' %}">
-                                {% if LANGUAGE_CODE == 'ru' %}
-                                    Архив новостей
-                                {% elif LANGUAGE_CODE == 'tt' %}
-                                    Яңалыклар архивы
-                                {% else %}
-                                    News archive
-                                {% endif %}
-                            </a>
-                        </header>
-                        {% news_feed %}
-                    </section>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <section class="card-transparent">
-                        <header class="card-transparent__header">
-                            <h2 class="card-transparent__title">Афиша</h2>
-                            <a class="card-transparent__link" href="{% url 'events:frontend:index' %}">Все
-                                мероприятия</a>
-                        </header>
-                        {% cache 600 'participant_events_nearest' %}
-                            {% participant_events_nearest 0 10 %}
-                        {% endcache %}
-                    </section>
-                </div>
-            </div>
+{#            <section class="card-transparent new-arrival-card">#}
+{#                <header class="card-transparent__header">#}
+{#                    <h2 class="card-transparent__title">#}
+{#                        {% if LANGUAGE_CODE == 'ru' %}#}
+{#                            Новые оцифрованные издания#}
+{#                        {% elif LANGUAGE_CODE == 'tt' %}#}
+{#                            Яңа цифрлаштырылган басмалар#}
+{#                        {% else %}#}
+{#                            New e-resources#}
+{#                        {% endif %}#}
+{#                    </h2>#}
+{#                    <a href="{% url 'newinlib:frontend:index' %}" class="card-transparent__link">#}
+{#                        {% if LANGUAGE_CODE == 'ru' %}Все оцифрованные издания#}
+{#                        {% elif LANGUAGE_CODE == 'tt' %}Соңгы кертелгән китаплар#}
+{#                        {% else %}More new arrivals#}
+{#                        {% endif %}#}
+{#                    </a>#}
+{#                </header>#}
+{#                {% cache 60 newinlib.html %}#}
+{#                    {% last_items_feed %}#}
+{#                {% endcache %}#}
+{#            </section>#}
+
+{#            <div class="row">#}
+{#                <div class="col-lg-6 col-md-12">#}
+{#                    <section class="card-transparent">#}
+{#                        <header class="card-transparent__header">#}
+{#                            <h2 class="card-transparent__title">#}
+{#                                {% if LANGUAGE_CODE == 'ru' %}#}
+{#                                    Новости#}
+{#                                {% elif LANGUAGE_CODE == 'tt' %}#}
+{#                                    Яңалыклар#}
+{#                                {% else %}#}
+{#                                    News#}
+{#                                {% endif %}#}
+{#                            </h2>#}
+{#                            <a class="card-transparent__link" href="{% url 'news:frontend:index' %}">#}
+{#                                {% if LANGUAGE_CODE == 'ru' %}#}
+{#                                    Архив новостей#}
+{#                                {% elif LANGUAGE_CODE == 'tt' %}#}
+{#                                    Яңалыклар архивы#}
+{#                                {% else %}#}
+{#                                    News archive#}
+{#                                {% endif %}#}
+{#                            </a>#}
+{#                        </header>#}
+{#                        {% news_feed %}#}
+{#                    </section>#}
+{#                </div>#}
+{#                <div class="col-lg-6 col-md-12">#}
+{#                    <section class="card-transparent">#}
+{#                        <header class="card-transparent__header">#}
+{#                            <h2 class="card-transparent__title">Афиша</h2>#}
+{#                            <a class="card-transparent__link" href="{% url 'events:frontend:index' %}">Все#}
+{#                                мероприятия</a>#}
+{#                        </header>#}
+{#                        {% cache 600 'participant_events_nearest' %}#}
+{#                            {% participant_events_nearest 0 10 %}#}
+{#                        {% endcache %}#}
+{#                    </section>#}
+{#                </div>#}
+{#            </div>#}
+
             <section class="card-transparent">
                 <header class="card-transparent__header">
                     <h2 class="card-transparent__title">Карта библиотек</h2>

@@ -77,7 +77,11 @@
                                         {% for library in  libraries %}
                                             <div class="list__item">
                                                 <div class="list__col-text">
-                                                    {% url 'participant_site:frontend:index' library.code as participant_site_url %}
+                                                    {% if not library.is_leaf_node %}
+                                                        {% url 'participants:frontend:branches' library.code as participant_site_url %}
+                                                    {% else %}
+                                                        {% url 'participants:frontend:detail' library.code as participant_site_url %}
+                                                    {% endif %}
                                                     <h3 class="list__title">
                                                         <a class="list__title-link"
                                                            href="{{ participant_site_url }}">{{ library.name }}</a>
