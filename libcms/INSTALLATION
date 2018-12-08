@@ -1,0 +1,43 @@
+#Процесс установки для Ubuntu
+#требуется python 2.7
+apt-get install g++
+apt-get install python-dev
+apt-get install python-pip
+apt-get install libboost-python1.42.0
+apt-get install mysql-server libmysqlclient-dev
+apt-get install python-lxml memcached libmemcached-dev
+
+pip install django -U
+pip install pylibmc -U
+pip install MySQL-python -U
+pip install uwsgi -U
+sudo pip install postmarkup
+sudo pip install Pygments
+sudo pip install python-openid
+sudo pip install oauth2
+sudo pip install pymorphy
+sudo pip install python-cdb
+
+# В СУБД MySQl создать базу с именем libcms ( или другое имя указанное в local_settingth.py),
+# указав ОБЯЗАТЕЛЬНО в качесиве кодировки по-умолчанию utf8-general-ci.
+mysql> CREATE DATABASE `libcms` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+# В local_settingth.py указать логин и пароль к созданной базе (словарь DATABASES['default'], ключи USER и PASSWORD)
+
+# Выполнить команду python manage.py syncdb (создание необходимыъ таблиц и заполнение их начальными данными). В процессе
+# синхронизации (если в она осуществляется в первые), система попросит ввести данные о супер пользователе.
+
+# Указать адрес сервера Memcached (словарь CACHES['default'], ключ LOCATION)
+
+# Выполнить команду python manage.py collectstatic
+# Настроить вебсервер для доступа к дирректории static по адресу указанному в переменной STATIC_URL файла settings.py
+
+
+
+Настройка веб сервера nginx ( описание для ubuntu)
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:nginx/stable
+sudo apt-get update
+sudo apt-get install nginx
+

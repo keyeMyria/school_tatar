@@ -1,0 +1,54 @@
+{% extends 'ssearch/administration/index.html' %}
+{#{% load adminmedia %}#}
+{% load active_link %}
+{% load pagination_tag %}
+{% load breadcrumbs %}
+{% block module_title %}Smart search{% endblock %}
+{% block module_menu %}
+    {% include 'ssearch/administration/module_menu.html' %}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% breadcrumb "Smart search" ssearch:administration:index %}
+    {% breadcrumb "Статистика" %}
+
+{% endblock %}
+{% block action_content %}
+    <script type="application/javascript" src="{{ STATIC_URL }}js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="{% url 'jsi18n' %}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/calendar.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/DateTimeShortcuts.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/widgets.css"/>
+
+    <script type="text/javascript">
+        window.__admin_media_prefix__ = "{{ STATIC_URL }}admin/";
+    </script>
+    <style>
+    form input[type=text], textarea{
+        width: 95%;
+    }
+    </style>
+    <div class="module_actions column prepend-1 last">
+        <a href="?statistics=attributes" class="button">Статистика по поисковым атрибутам</a>
+        <a href="?statistics=requests" class="button">Статистика по запросам</a>
+        <a href="?statistics=terms" class="button">Статистика по фразам</a>
+    </div>
+    <hr/>
+    <div class="">
+        <form  action="" class="form-horizontal" method="POST">{% csrf_token %}
+            <fieldset>
+                {% include 'administration/base_form_fields.html' with form=catalog_form %}
+                {% include 'administration/base_form_fields.html' with form=period_form %}
+                {% include 'administration/base_form_fields.html' with form=group_form %}
+                {% include 'administration/base_form_fields.html' with form=attributes_form %}
+            </fieldset>
+            <input type="submit" value="Показать" class="btn"/>
+        </form>
+        <div id="chart_container" class="span9"></div>
+        {#{{ zcatalog.requests_by_day }}#}
+    </div>
+{#    Выберите пункт меню для дальнейших действий#}
+    {% include 'ssearch/administration/catalog_statistics_column.html' %}
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'participant_site/frontend/index.html' %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block title %}{{ content.title }} / {{ event.library.name }}{% endblock %}
+{% block content_library-crumb %}
+    <nav class="crumb">
+        <ol class="crumb__list">
+            <li>
+                <a href="{% url 'index:frontend:index' %}">Главная</a>
+            </li>
+            {% for ancestor in event.library.get_ancestors %}
+                <li>
+                    <a href="{% url 'participant_site:frontend:index' ancestor.code %}">{{ ancestor.name }}</a>
+                </li>
+            {% endfor %}
+            <li>
+                <a href="{% url 'participant_site:frontend:index' event.library.code %}">{{ event.library.name }}</a>
+            </li>
+            <li>
+                <a href="{% url 'participant_events:frontend:index' event.library.code %}">Афиша</a>
+            </li>
+            <li>
+                <span class="crumb__current">Информация о событии</span>
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content_library %}
+    <div class="col-lg-7 col-md-12">
+        <div class="card-transparent">
+            <div class="content">
+                <h1 class="content__title">{{ content.title }}</h1>
+                <div class="content__info">
+                    <span><span class="icon-locating"></span>&nbsp;&nbsp;Место проведения: {{ event.address }}</span>
+                    <span><span
+                            class="icon-runer-silhouette-running-fast"></span>&nbsp;&nbsp;Начало: {{ event.start_date|date:'D' }} {{ event.start_date|date:'d E Y H:i' }}</span>
+                    <span><span
+                            class="icon-racing-flag"></span>&nbsp;&nbsp;Окончание: {{ event.end_date|date:'D' }} {{ event.end_date|date:'d E Y H:i' }}</span>
+                    <span><span class="icon-wall-clock"></span>&nbsp;&nbsp;Длительность:
+                        {% if period.0 %}
+                            {{ period.0 }} д.
+                        {% endif %}
+                        {% if period.1 %}
+                            {{ period.1 }} ч.
+                        {% endif %}
+                        {% if period.2 %}
+                            {{ period.2 }} мин.
+                        {% endif %}
+                        </span>
+                    <span><span class="icon-man-user"></span>&nbsp;&nbsp;Возрастная категория:
+                        {% for age_category in event.age_category.all %}
+                            {{ age_category|lower }} {% endfor %}</span>
+                    <span><span
+                            class="icon-line-chart"></span>&nbsp;&nbsp;Направление:
+                        {% for event_type in event.event_type.all %}{{ event_type|lower }}{% endfor %}</span>
+                </div>
+                <p><a href="{% url 'participant_events:frontend:create_notification' library.code event.id %}">Установить
+                    напоминание</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a
+                        href="{% url 'participant_events:frontend:make_icalendar' library.code event.id %}">Загрузить в
+                    календарь</a>
+                </p>
+                {{ content.content|safe }}
+            </div>
+            <div class="ya-share2"
+                 data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,viber,whatsapp,telegram"></div>
+        </div>
+    </div>
+{% endblock %}

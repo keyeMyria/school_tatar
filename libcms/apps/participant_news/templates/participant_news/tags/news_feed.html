@@ -1,0 +1,33 @@
+{#{% if news_list %}#}
+{#    {% for news in news_list %}#}
+{#        <div class="news-page-box">#}
+{#            <div class="news-page-box__date">{{ news.create_date|date:'d E Y' }}</div>#}
+{#            <h1 class="news-page-box__title"><a#}
+{#                    href="{% url 'participant_news:frontend:show' news.library.code news.id %}">{{ news.title }}</a>#}
+{#            </h1>#}
+{##}
+{#            <p class="news-page-box__teaser">{{ news.teaser }}</p>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% else %}#}
+{#    <div class="content-page__text">#}
+{#        <p>Новостей нет</p>#}
+{#    </div>#}
+{#{% endif %}#}
+
+{% if news_list %}
+    <div class="news-list">
+        {% for news in news_list %}
+            <article class="news-list__item">
+                <time class="news-list__date">{{ news.create_date|date:'d E Y' }}</time>
+                <h3 class="news-list__title"><a class="news-list__link"
+                                                href="{% url 'participant_news:frontend:show' news.library.code news.id %}">{{ news.title }}</a>
+                </h3>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="content-page__text">
+        <div class="alert alert-info">Новостей нет</div>
+    </div>
+{% endif %}

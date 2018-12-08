@@ -1,0 +1,52 @@
+{% extends 'participant_site/frontend/index.html' %}
+{% load pagination_tag %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block title %}Новости / {{ library.name }}{% endblock %}
+{% block content_library-crumb %}
+    <nav class="crumb">
+        <ol class="crumb__list">
+            <li>
+                <a href="{% url 'index:frontend:index' %}">
+                    Главная
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'participant_site:frontend:index' library.code %}">
+                    {{ library.name }}
+                </a>
+            </li>
+            <li>
+                <span class="crumb__current">
+                    Новости
+                </span>
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+{% block content_library %}
+    <div class="col-lg-7 col-md-12">
+        <div class="card-transparent">
+            <div class="card-transparent__header">
+                <h2 class="card-transparent__title">Новости</h2>
+            </div>
+            <div class="news-list">
+                {% for news in news_list %}
+                    <article class="news-list__item news-list__item_mb-big">
+                        <time class="news-list__date">{{ news.create_date|date:'d E Y' }}</time>
+                        <h3 class="news-list__title">
+                            <a class="news-list__link"
+                               href="{% url 'participant_news:frontend:show' library.code news.id %}">
+                                {{ news.title }}
+                            </a>
+                        </h3>
+                        <p class="news-list__description">{{ news.teaser }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+            {% admin_pagination news_page %}
+        </div>
+    </div>
+{% endblock %}
+
+

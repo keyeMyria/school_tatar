@@ -1,0 +1,13 @@
+{% extends 'statistics/frontend/index.html' %}
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'index:frontend:index' %}">Начало</a> <span class="divider">/</span></li>
+        <li><a href="{% url 'statistics:frontend:index' %}">Статистика</a> <span class="divider">/</span></li>
+        <li class="active">Отчет</li>
+    </ul>
+{% endblock %}
+{% block index_content %}
+    <link rel="stylesheet" href="https://kitap.tatar.ru/reports/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://kitap.tatar.ru/reports/css/report-modern.css" type="text/css" />
+    {{ report_body|safe }}
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'participants/administration/index.html' %}
+{% load active_link %}
+{% load pagination_tag %}
+{% load breadcrumbs %}
+
+{% block breadcrumb %}
+    <li>
+        <a href="{% url 'participants:administration:index' %}">Библиотеки</a>
+        <span class="divider">/</span>
+    </li>
+    {% for ancestor in library.get_ancestors %}
+        <li>
+            <a href="{% url 'participants:administration:detail' ancestor.id %}">{{ ancestor.name }}</a>
+            <span class="divider">/</span>
+        </li>
+    {% endfor %}
+    <li>
+        <a href="{% url 'participants:administration:detail' library.id %}">{{ library.name }}</a>
+        <span class="divider">/</span>
+    </li>
+    <li class="active">Редактирование сотрудника библиотеки</li>
+
+{% endblock %}
+
+{% block action_content %}
+    <div class="alert alert-warning">
+        {% if managed_libraries %}
+            Вы можете управлять сотрудниками организаций:
+            <ul>
+                {% for managed_library in managed_libraries %}
+                    <li>{% for ancestor in managed_library.library.get_ancestors %}
+                        <b>{{ ancestor.name }}</b> /
+                    {% endfor %}
+                        <b>{{ managed_library.library.name }}</b>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            Вы можете управлять сотрудниками любой организации
+        {% endif %}
+    </div>
+    {% if errors %}
+        <div class="alert alert-error">
+            {% for error in errors %}
+                <p>{{ error.message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form class="form-horizontal" method="post">
+
+        {% csrf_token %}
+        <fieldset>
+            {% include 'administration/base_form_fields.html' with form=user_form %}
+            {% include 'administration/base_form_fields.html' with form=user_library_form %}
+            {% include 'administration/base_form_fields.html' with form=user_roles_from %}
+            <div class="form-actions">
+                <button class="btn" type="submit">Редактировать</button>
+            </div>
+        </fieldset>
+    </form>
+    {% include 'participants/administration/password_generator.html' %}
+
+{#    {% include 'participants/administration/lib_select_js.html' %}#}
+{% endblock %}

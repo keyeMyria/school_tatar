@@ -1,0 +1,65 @@
+{% extends 'theme_frontend_base.html' %}
+{% load mptt_tags %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}statistics/report.css"/>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ STATIC_URL }}statistics/report.js"></script>
+{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="https://kitap.tatar.ru/reports/css/bootstrap.min.css" type="text/css" />
+    <div class="span12">
+        {% block breadcrumb %}
+            <ul class="breadcrumb">
+                <li><a href="{% url 'index:frontend:index' %}">Начало</a> <span class="divider">/</span></li>
+                <li class="active">Статистика</li>
+            </ul>
+        {% endblock %}
+        {% if error %}
+            <div class="alert alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% block index_content %}
+            <p class="alert alert-info">
+                {% if managed_libraries %}
+                    Вам доступны отчеты по:
+                    <ul>
+                        {% recursetree managed_libraries %}
+                            <li>
+                                <span>{{ node.name }}</span>
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endrecursetree %}
+                    </ul>
+                    {#                    {% for managed_library in managed_libraries %}#}
+                    {#                        {% if managed_library.parent_id %}#}
+                    {#                            {% for ancestor in managed_library.get_ancestors %}#}
+                    {#                                {{ ancestor.name }} /#}
+                    {#                            {% endfor %}#}
+                    {#                        {% endif %}#}
+                    {#                        {{ managed_library.name }}#}
+                    {#                    {% endfor %}#}
+                {% else %}
+                    Вам доступна статистика всех организаций
+                {% endif %}
+            </p>
+            <ul class="nav nav-tabs">
+                {% for category in response_dict.categories %}
+                <li {% if category.isSelected %}class="active"{% endif %}><a href="?category={{ category.code|urlencode }}">{{ category.name }}</a></li>
+            {% endfor %}
+            </ul>
+            <ul>
+                {% for report in response_dict.reports %}
+                    <li>
+                        <a href="{% url 'statistics:frontend:report' %}?code={{ report.code }}&category={{ category|urlencode }}">{{ report.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endblock %}
+    </div>
+{% endblock %}

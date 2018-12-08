@@ -1,0 +1,36 @@
+{% extends 'theme_frontend_base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Login' %}
+{% endblock %}
+{% block content %}
+    {% url 'sso_esia:redirect_from_ip' as redirect_url %}
+    <div class="span12">
+        <div class="row">
+            <div class="span12">
+                <ul class="breadcrumb">
+                    <li><a href="{% url 'index:frontend:index' %}">Начало</a> <span class="divider">/</span></li>
+                    <li class="active">Вход на портал через ЭО РТ</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span8">
+                <p>Уважаемый пользователь, Вы зашли на портал с помощью ЭО РТ в первый раз.</p>
+
+                <p>Если у Вас уже есть Единый Читательский Билет (ЕЧБ), Вы можете привязвать его к учетной записи
+                    ЭО РТ.</p>
+
+                <form method="POST" class="form-horizontal">{% csrf_token %}
+                    <fieldset>
+                        {% include 'frontend/base_form_fields.html' with form=ruslan_auth_form %}
+                        <div class="form-actions">
+                            <input type="submit" value="Привязать" class="btn btn-success"/>
+                            <a href="{% url 'sso_esia:register_new_user' esia_id %}" class="btn btn-primary">У меня нет Единого Читательского Билета</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
