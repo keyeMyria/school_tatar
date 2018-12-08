@@ -83,12 +83,13 @@
                                                         {% url 'participants:frontend:detail' library.code as participant_site_url %}
                                                     {% endif %}
                                                     <h3 class="list__title">
-                                                        <a class="list__title-link"
-                                                           href="{{ participant_site_url }}">{{ library.name }}</a>
+                                                        <span>{{ library.name }}</span>
+{#                                                        <a class="list__title-link"#}
+{#                                                           href="{{ participant_site_url }}">{{ library.name }}</a>#}
                                                     </h3>
-                                                    <a class="list__link"
-                                                       href="{% url 'ssearch:frontend:index' %}?library={{ library.code }}"
-                                                       target="_blank">Поиск в каталоге</a>
+{#                                                    <a class="list__link"#}
+{#                                                       href="{% url 'ssearch:frontend:index' %}?library={{ library.code }}"#}
+{#                                                       target="_blank">Поиск в каталоге</a>#}
                                                 </div>
                                             </div>
                                         {% empty %}
